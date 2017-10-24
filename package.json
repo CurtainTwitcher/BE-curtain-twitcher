@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "pre:test": "npm run lint",
     "test": "npm run seed:test && NODE_ENV=test mocha ./spec/*",
     "start": "NODE_ENV=development nodemon index.js",
-    "seed:test": "psql -f ./db/setup.test.sql && psql -f ./db/seed.test.sql"
+    "seed:test": "psql -f ./db/setup.test.sql && psql -f ./db/seed.test.sql",
+    "lint": "eslint ./",
+    "lint:fix": "npm run lint -- --fix",
+    "precommit": "npm test"
   },
   "keywords": [],
   "author": "",
