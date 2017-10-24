@@ -37,19 +37,19 @@ readdir(CRIME_STREET_PATH)
             LSOAName: data['LSOA name'],
             crimeType: data['Crime type'],
             outcome: data['Last outcome category']
-          }).save()
+          }).save();
           streetCrimeData.push(crime);
         })
         .on('end', () => {
           // Save promises to mongoose db
           return Promise.all(streetCrimeData)
-            .then((values) => {
-              ++currentCount
+            .then(() => {
+              ++currentCount;
               if (currentCount === fileCount) {
                 console.log('DONE');
                 mongoose.disconnect();
               }
-            })
-        })
-    })
-  })
+            });
+        });
+    });
+  });
