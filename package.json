@@ -13,11 +13,19 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.1.2",
+    "fast-csv": "^2.4.1",
     "mocha": "^4.0.1",
+    "mongoose": "^4.12.4",
     "supertest": "^3.0.0"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2"
+    "dotenv": "^4.0.0",
+    "es6-promisify": "^5.0.0",
+    "express": "^4.16.2",
+    "file-system": "^2.2.2",
+    "fs": "0.0.1-security",
+    "mongodb": "^2.2.33",
+    "pg-promise": "^7.0.3"
   }
 }
