@@ -6,7 +6,8 @@ const streetCrimeSchema = new Schema({
   reportedBy: String,
   location: {
     type: {type: String, default: 'Point'},
-    coordinates: [Number]
+    coordinates: [Number],
+    index: {type: String, default: '2d'}
   },
   streetName: String,
   LSOAName: String,
