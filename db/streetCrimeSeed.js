@@ -58,8 +58,8 @@ readdir(CRIME_STREET_PATH)
                     resolve();
                   });
               });
-          })
-        })
+          });
+        });
     }, Promise.resolve());
 
 

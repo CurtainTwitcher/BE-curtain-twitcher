@@ -1,8 +1,9 @@
 const StreetCrime = require('../models/streetCrime');
 
-const findRecentCrimes = (lng, lat, maxDistance) => {
+const findRecentCrimes = (lng, lat, month, maxDistance, crimeType) => {
   return StreetCrime.find({
-    month: '2017-08',
+    month: month,
+    crimeType: crimeType,
     location: {
       $geoWithin: {
         $centerSphere: [[lng, lat], maxDistance]
