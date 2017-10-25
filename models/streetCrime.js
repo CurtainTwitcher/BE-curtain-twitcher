@@ -4,9 +4,11 @@ const Schema = mongoose.Schema;
 const streetCrimeSchema = new Schema({
   month: String,
   reportedBy: String,
-  longitude: Number,
-  latitude: Number,
-  location: String,
+  location: {
+    type: {type: String, default: 'Point'},
+    coordinates: [Number]
+  },
+  streetName: String,
   LSOAName: String,
   crimeType: String,
   outcome: String
