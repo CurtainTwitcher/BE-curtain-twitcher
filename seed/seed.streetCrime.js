@@ -41,7 +41,7 @@ readdir(CRIME_STREET_PATH)
                   streetName: data.Location,
                   LSOAName: data['LSOA name'],
                   crimeType: data['Crime type'],
-                  outcome: data['Last outcome category']
+                  outcome: data['Last outcome category'] || 'Unknown outcome'
                 }).save());
               })
               .on('end', () => {

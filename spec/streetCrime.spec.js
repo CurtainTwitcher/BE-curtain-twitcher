@@ -4,7 +4,7 @@ const { db } = require('../config');
 mongoose.Promise = Promise;
 const { expect } = require('chai');
 const request = require('supertest');
-const saveTestData = require('../seed/testStreetCrime');
+const saveTestData = require('../seed/seed.test.streetCrime');
 const app = require('../server');
 
 describe('API', () => {
