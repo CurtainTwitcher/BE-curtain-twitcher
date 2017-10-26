@@ -1,11 +1,11 @@
 const app = require('./server');
-const {PORT} = require('./config');
+const {PORT, db} = require('./config');
 const mongoose = require('mongoose');
-const dbURL = 'mongodb://localhost:27017/curtain_twitcher';
 mongoose.Promise = Promise;
+console.log(db);
 
-mongoose.connect(dbURL, {useMongoClient: true})
-  .then(() => console.log(`Successfully connected to ${dbURL}`))
+mongoose.connect(`mongodb://${db.host}:${db.port}/${db.database}`, {useMongoClient: true})
+  .then(() => console.log(`Successfully connected to mongodb://${db.host}:${db.port}/${db.database}`))
   .catch(err => console.log(`Connection failed: ${err}`));
 
 app.get('/', (req, res) => {

@@ -1,4 +1,3 @@
-// const streetCrime = require('../models/streetCrime');
 const findRecentCrimes = require('../utils/findRecentCrimes');
 
 // coordinates must be LNG first, LAT second
