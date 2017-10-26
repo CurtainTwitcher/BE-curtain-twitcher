@@ -67,7 +67,7 @@ describe('API', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {
-          expect(res.body.length).to.equal(2);
+          expect(res.body.length).to.equal(14);
           mongoose.disconnect();
         });
     });
@@ -89,8 +89,8 @@ describe('API', () => {
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {
-          expect(res.body[0]['Anti-social behaviour']).to.equal(4);
-          expect(res.body[0]['Burglary']).to.equal(1);
+          expect(res.body[0].name).to.equal('Criminal damage and arson');
+          expect(res.body[1]['Aug 2017']).to.equal(4);
           mongoose.disconnect();
         });
     });
