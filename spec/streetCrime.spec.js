@@ -13,12 +13,10 @@ const streetCrime = require('../models/streetCrime');
 describe('API', () => {
   let usefulData;
   beforeEach(() => {
-    console.log(('running'));
     return mongoose.connect(`mongodb://${db.host}:${db.port}/${db.database}`, {useMongoClient: true})
       .dropDatabase()
       .then(saveTestData)
       .then(data => {
-        console.log(`saved to ${db.database} on port ${db.PORT}`);
         usefulData = data;
       })
       .catch(err => console.log(err));
@@ -29,9 +27,39 @@ describe('API', () => {
       return request(app)
         .get('/api/crimes?lng=-2.207582&lat=53.458131')
         .expect(200)
+        .expect('Content-Type', /json/)
         .then(res => {
-          console.log('•••••8••••••••••8', res.body[0]);
           expect(res.body[0]).to.be.an('object');
+          mongoose.disconnect();
+        });
+    });
+    it('sends back data for specified crime types', () => {
+      return request(app)
+        .get('/api/crimes?lng=-2.207582&lat=53.458131&type=Burglary')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          expect(res.body.length).to.equal(1);
+          mongoose.disconnect();
+        });
+    });
+    it('sends back data for correct month', () => {
+      return request(app)
+        .get('/api/crimes?lng=-2.207582&lat=53.458131&month=2017-07')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          expect(res.body.length).to.equal(0);
+          mongoose.disconnect();
+        });
+    });
+    it('sends back data for correct radius', () => {
+      return request(app)
+        .get('/api/crimes?lng=-2.207582&lat=53.458131&dis=1')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          expect(res.body.length).to.equal(10);
           mongoose.disconnect();
         });
     });
