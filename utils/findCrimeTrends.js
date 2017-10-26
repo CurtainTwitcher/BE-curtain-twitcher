@@ -1,4 +1,6 @@
 const StreetCrime = require('../models/streetCrime');
+const crimeTypes = require('./crimeTypes');
+const months = require('./months');
 
 const findCrimeTrends = (lng, lat, maxDistance) => {
   return StreetCrime.find({
@@ -9,18 +11,20 @@ const findCrimeTrends = (lng, lat, maxDistance) => {
     }
   })
     .then( crimes =>  {
-      const months = { '2017-03': 0, '2017-04': 1, '2017-05':  2, '2017-06': 3,'2017-07': 4, '2017-08': 5 };
+      const accumulator = Object.keys(crimeTypes)
+        .reduce((acc, crimeType) => {
+          acc.push({ name: crimeType });
+          return acc;
+        }, []); 
       return crimes
         .reduce((acc, crime) => {
-          if (months.hasOwnProperty(crime.month)) {
-            acc[months[crime.month]].hasOwnProperty(crime.crimeType)
-              ? acc[months[crime.month]][crime.crimeType] += 1
-              : acc[months[crime.month]][crime.crimeType] = 1;
+          if (crimeTypes.hasOwnProperty(crime.crimeType)) {
+            acc[crimeTypes[crime.crimeType]].hasOwnProperty(months[crime.month])
+              ? acc[crimeTypes[crime.crimeType]][months[crime.month]] += 1
+              : acc[crimeTypes[crime.crimeType]][months[crime.month]] = 1;
           }
           return acc;
-        }, [
-          { month: 'Mar 2017' }, { month: 'Apr 2017' }, { month: 'May 2017' }, { month: 'Jun 2017' }, { month: 'Jul 2017' }, { month: 'Aug 2017' }
-        ]);
+        }, accumulator);
     });
 };
 
