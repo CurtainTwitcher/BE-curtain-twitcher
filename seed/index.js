@@ -1,5 +1,4 @@
-const initOptions = {promiseLib: Promise};
-const pgp = require('pg-promise')(initOptions);
+const seedCrimes = require('../utils/parseSchools');
+const getCoords = require('../utils/getCoords');
 
-const config = require('../config');
-module.exports = pgp(config.db);
+seedCrimes(getCoords);

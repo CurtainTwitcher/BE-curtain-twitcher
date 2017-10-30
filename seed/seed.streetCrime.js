@@ -61,45 +61,4 @@ readdir(CRIME_STREET_PATH)
           });
         });
     }, Promise.resolve());
-
-
-
-
-
-
-
-
-    // files.forEach(file => {
-    //   // Parse the CSV to JSON and save to array
-    //   let streetCrimeData = [];
-    //   csv
-    //     .fromPath(`${CRIME_STREET_PATH}/${file}`, {
-    //       headers: true
-    //     })
-    //     .on('data', (data) => {
-    //       streetCrimeData.push(new StreetCrimeSchema({
-    //         month: data.Month,
-    //         reportedBy: data['Reported by'],
-    //         location: {
-    //           coordinates: [data.Longitude, data.Latitude]
-    //         },
-    //         streetName: data.Location,
-    //         LSOAName: data['LSOA name'],
-    //         crimeType: data['Crime type'],
-    //         outcome: data['Last outcome category']
-    //       }).save());
-    //     })
-    //     .on('end', () => {
-    //       // Save promises to mongoose db
-    //       return Promise.all(streetCrimeData)
-    //         .then(() => {
-    //           streetCrimeData = null;
-    //           ++currentCount;
-    //           if (currentCount === fileCount) {
-    //             console.log('DONE');
-    //             mongoose.disconnect();
-    //           }
-    //         });
-    //     });
-    // });
   });

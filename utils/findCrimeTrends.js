@@ -29,8 +29,3 @@ const findCrimeTrends = (lng, lat, maxDistance) => {
 };
 
 module.exports = findCrimeTrends;
-
-// if (acc[0].date.includes(crime.month))
-// acc[0].hasOwnProperty(crime.crimeType) ? acc[0][crime.crimeType] += 1 : acc[0][crime.crimeType] = 1;
-// if (acc[1].date.includes(crime.month))
-// acc[1].hasOwnProperty(crime.crimeType) ? acc[1][crime.crimeType] += 1 : acc[1][crime.crimeType] = 1;
