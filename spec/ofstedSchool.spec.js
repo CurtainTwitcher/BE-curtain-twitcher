@@ -19,7 +19,7 @@ describe('API', () => {
       .catch(err => console.log(err));
   });
   describe('GET /schools', () => {
-    it('returns the correct object with 200 status code', () => {
+    it('sends the correct object with 200 status code', () => {
       return request(app)
         .get('/api/schools?lng=-1.73499676924206&lat=53.8074122035828')
         .expect(200)
@@ -29,7 +29,7 @@ describe('API', () => {
           mongoose.disconnect();
         });
     });
-    it('returns data for correct area using lng/lat coords', () => {
+    it('sends data for correct area using lng/lat coords', () => {
       return request(app)
         .get('/api/schools?lng=-1.73499676924206&lat=53.8074122035828')
         .expect(200)
@@ -45,6 +45,16 @@ describe('API', () => {
         .expect(404)
         .then(res => {
           expect(res.body.msg).to.equal('incorrect request');
+        });
+    });
+    it('sends data for correct area using school phase', () => {
+      return request(app)
+        .get('/api/schools?lng=-1.73499676924206&lat=53.8074122035828&phase=Primary')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          expect(res.body.length).to.equal(1);
+          mongoose.disconnect();
         });
     });
   });
