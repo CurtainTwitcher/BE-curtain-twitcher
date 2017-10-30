@@ -21,12 +21,30 @@ describe('API', () => {
   describe('GET /schools', () => {
     it('returns the correct object with 200 status code', () => {
       return request(app)
-        .get('/api/schools')
+        .get('/api/schools?lng=-1.73499676924206&lat=53.8074122035828')
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body[0]).to.be.an('object');
           mongoose.disconnect();
+        });
+    });
+    it('returns data for correct area using lng/lat coords', () => {
+      return request(app)
+        .get('/api/schools?lng=-1.73499676924206&lat=53.8074122035828')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          expect(res.body.length).to.equal(1);
+          mongoose.disconnect();
+        });
+    });
+    it('sends back a 404 when given invalid id', () => {
+      return request(app)
+        .get('/api/schools')
+        .expect(404)
+        .then(res => {
+          expect(res.body.msg).to.equal('incorrect request');
         });
     });
   });
