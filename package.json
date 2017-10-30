@@ -10,12 +10,14 @@
     "lint": "eslint ./",
     "lint:fix": "npm run lint -- --fix",
     "precommit": "npm test",
-    "seed": "node ./seed/seed.streetCrime.js"
+    "seed": "node ./seed/seed.streetCrime.js",
+    "seed:schools": "node ./seed/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "axios": "^0.17.0",
     "chai": "^4.1.2",
     "fast-csv": "^2.4.1",
     "mocha": "^4.0.1",
@@ -29,6 +31,7 @@
     "express": "^4.16.2",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
+    "lodash": "^4.17.4",
     "mongodb": "^2.2.33",
     "pg-promise": "^7.0.3"
   }
