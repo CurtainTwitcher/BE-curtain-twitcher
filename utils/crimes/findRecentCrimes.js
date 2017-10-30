@@ -1,4 +1,4 @@
-const StreetCrime = require('../models/streetCrime');
+const StreetCrime = require('../../models/streetCrime');
 
 const findRecentCrimes = (lng, lat, month, maxDistance, crimeType) => {
   return StreetCrime.find({

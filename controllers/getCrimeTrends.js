@@ -1,4 +1,4 @@
-const findCrimeTrends = require('../utils/findCrimeTrends');
+const findCrimeTrends = require('../utils/crimes/findCrimeTrends');
 
 // coordinates must be LNG first, LAT second
 const getCrimeTrends = (req, res, next) => {

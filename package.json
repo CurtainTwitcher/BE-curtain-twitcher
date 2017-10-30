@@ -10,8 +10,7 @@
     "lint": "eslint ./",
     "lint:fix": "npm run lint -- --fix",
     "precommit": "npm test",
-    "seed": "node ./seed/seed.streetCrime.js",
-    "seed:schools": "node ./seed/index.js"
+    "seed": "node ./seed/index.js"
   },
   "keywords": [],
   "author": "",

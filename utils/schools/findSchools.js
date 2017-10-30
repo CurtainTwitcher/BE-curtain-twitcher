@@ -1,4 +1,4 @@
-const OfstedSchool = require('../models/OfstedSchool');
+const OfstedSchool = require('../../models/OfstedSchool');
 
 const findSchools = (lng, lat, maxDistance, phase) => {
   return OfstedSchool.find({

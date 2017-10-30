@@ -1,7 +1,5 @@
 process.env.NODE_ENV = 'test';
 const mongoose = require('mongoose');
-const { db } = require('../config');
-mongoose.Promise = Promise;
 const { expect } = require('chai');
 const request = require('supertest');
 const saveTestData = require('../seed/seed.test.streetCrime');
@@ -10,7 +8,7 @@ const app = require('../server');
 describe('API', () => {
   let usefulData;
   beforeEach(() => {
-    return mongoose.connect(`mongodb://${db.host}:${db.port}/${db.database}`, { useMongoClient: true })
+    return mongoose.connection
       .dropDatabase()
       .then(saveTestData)
       .then(data => {
@@ -26,7 +24,6 @@ describe('API', () => {
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body[0]).to.be.an('object');
-          mongoose.disconnect();
         });
     });
     it('sends back data for specified crime types', () => {
@@ -36,7 +33,6 @@ describe('API', () => {
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body.length).to.equal(1);
-          mongoose.disconnect();
         });
     });
     it('sends back data for correct month', () => {
@@ -46,7 +42,6 @@ describe('API', () => {
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body.length).to.equal(0);
-          mongoose.disconnect();
         });
     });
     it('sends back data for correct radius', () => {
@@ -56,7 +51,14 @@ describe('API', () => {
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body.length).to.equal(10);
-          mongoose.disconnect();
+        });
+    });
+    it('sends back a 404 when given an invalid url request', () => {
+      return request(app)
+        .get('/api/crimes')
+        .expect(404)
+        .then(res => {
+          expect(res.body.msg).to.equal('please provide longitude and latitude');
         });
     });
   });
@@ -68,7 +70,6 @@ describe('API', () => {
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body.length).to.equal(14);
-          mongoose.disconnect();
         });
     });
     it('sends back an array of objects', () => {
@@ -80,7 +81,6 @@ describe('API', () => {
           expect(res.body).to.be.an('array');
           expect(res.body[0]).to.be.an('object');
           expect(res.body[1]).to.be.an('object');
-          mongoose.disconnect();
         });
     });
     it('sends back a count of each crime type', () => {
@@ -91,7 +91,6 @@ describe('API', () => {
         .then(res => {
           expect(res.body[0].name).to.equal('Criminal damage and arson');
           expect(res.body[1]['Aug 2017']).to.equal(4);
-          mongoose.disconnect();
         });
     });
   });

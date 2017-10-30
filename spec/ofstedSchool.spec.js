@@ -1,7 +1,5 @@
 process.env.NODE_ENV = 'test';
 const mongoose = require('mongoose');
-const { db } = require('../config');
-mongoose.Promise = Promise;
 const { expect } = require('chai');
 const request = require('supertest');
 const saveTestData = require('../seed/seed.test.ofstedSchool');
@@ -10,7 +8,7 @@ const app = require('../server');
 describe('API', () => {
   let usefulData;
   beforeEach(() => {
-    return mongoose.connect(`mongodb://${db.host}:${db.port}/${db.database}`, { useMongoClient: true })
+    return mongoose.connection
       .dropDatabase()
       .then(saveTestData)
       .then(data => {
@@ -26,7 +24,6 @@ describe('API', () => {
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body[0]).to.be.an('object');
-          mongoose.disconnect();
         });
     });
     it('sends data for correct area using lng/lat coords', () => {
@@ -36,7 +33,6 @@ describe('API', () => {
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body.length).to.equal(1);
-          mongoose.disconnect();
         });
     });
     it('sends back a 404 when given invalid id', () => {
@@ -44,7 +40,7 @@ describe('API', () => {
         .get('/api/schools')
         .expect(404)
         .then(res => {
-          expect(res.body.msg).to.equal('incorrect request');
+          expect(res.body.msg).to.equal('please provide longitude and latitude');
         });
     });
     it('sends data for correct area using school phase', () => {
@@ -54,7 +50,6 @@ describe('API', () => {
         .expect('Content-Type', /json/)
         .then(res => {
           expect(res.body.length).to.equal(1);
-          mongoose.disconnect();
         });
     });
   });

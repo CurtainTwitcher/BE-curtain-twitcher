@@ -1,5 +1,5 @@
 const path = require('path');
-const OFSTED_DATA_PATH = path.join(__dirname, '../data/schools/ofstedSchoolData.csv');
+const OFSTED_DATA_PATH = path.join(__dirname, '../../data/schools/ofstedSchoolData.csv');
 const csv = require('fast-csv');
 const reduceCoords = require('./reduceCoords');
 

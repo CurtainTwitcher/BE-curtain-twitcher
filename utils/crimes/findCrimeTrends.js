@@ -1,4 +1,4 @@
-const StreetCrime = require('../models/streetCrime');
+const StreetCrime = require('../../models/streetCrime');
 const crimeTypes = require('./crimeTypes');
 const months = require('./months');
 
