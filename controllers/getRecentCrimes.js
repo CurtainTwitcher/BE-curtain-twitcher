@@ -6,7 +6,7 @@ const getRecentCrimes = (req, res, next) => {
   const earthRadius = 3959;
   let maxDistance = radius / earthRadius;
   findRecentCrimes(lng, lat, month, maxDistance, crimeType)
-    .then(crime => res.json(crime))
+    .then(crime => res.send(crime))
     .catch(err => next(err));
 };
 
