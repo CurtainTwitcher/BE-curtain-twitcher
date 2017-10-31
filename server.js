@@ -1,4 +1,4 @@
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'dev';
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
 
 const app = require('express')();
 const { json } = require('body-parser');
@@ -8,8 +8,8 @@ const { db } = require('./config');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
-mongoose.connect(`mongodb://${db.host}:${db.port}/${db.database}`, {useMongoClient: true})
-  .then(() => console.log(`Successfully connected to mongodb://${db.host}:${db.port}/${db.database}`))
+mongoose.connect(db , {useMongoClient: true})
+  .then(() => console.log(`Successfully connected to ${db}`))
   .catch(err => console.log(`Connection failed: ${err}`));
 
 app.use(json());

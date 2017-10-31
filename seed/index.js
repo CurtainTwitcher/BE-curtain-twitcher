@@ -4,11 +4,11 @@ const seedCrimes = require('../utils/crimes/seedCrimes');
 
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
-const dbURL = 'mongodb://localhost:27017/curtain_twitcher';
+const { db } = require('../config');
 
-mongoose.connect(dbURL, {useMongoClient: true})
+mongoose.connect(db, {useMongoClient: true})
   .then(() => {
-    console.log(`Successfully connected to ${dbURL}`);
+    console.log(`Successfully connected to ${db}`);
     return Promise.all([ seedCrimes(), seedSchools(getCoords)]);
   })
   .then(() => mongoose.disconnect())
