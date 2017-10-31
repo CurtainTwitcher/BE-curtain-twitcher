@@ -23,9 +23,11 @@ const seedCrimes = () => {
               csv
                 .fromPath(`${CRIME_STREET_PATH}/${file}`, { headers: true })
                 .on('data', (data) => {
-                  streetCrimeData.push(new StreetCrimeSchema(tidyCrime(data)).save());
+                  console.log(1);
+                  streetCrimeData.push(new StreetCrimeSchema(tidyCrime(data)));
                 })
-                .on('end', () => {
+                .on('end', (data) => {
+                  console.log(data, 2)
                   return Promise.all(streetCrimeData)
                     .then(() => {
                       streetCrimeData = null;
