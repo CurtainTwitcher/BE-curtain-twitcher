@@ -53,4 +53,35 @@ describe('API', () => {
         });
     });
   });
+  describe('GET /schools/trends', () => {
+    it('sends back school trend data', () => {
+      return request(app)
+        .get('/api/schools/trends?lng=-1.73499676924206&lat=53.8074122035828')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          expect(res.body.length).to.equal(1);
+        });
+    });
+    it('sends back an array of objects', () => {
+      return request(app)
+        .get('/api/schools/trends?lng=-1.73499676924206&lat=53.8074122035828')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          expect(res.body).to.be.an('array');
+          expect(res.body[0]).to.be.an('object');
+        });
+    });
+    it('sends back the performance scores for each school', () => {
+      return request(app)
+        .get('/api/schools/trends?lng=-1.73499676924206&lat=53.8074122035828')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+          expect(res.body[0].name).to.equal('Peel Park Primary School and Nursery');
+          expect(res.body[0]['2014']).to.equal('3');
+        });
+    });
+  });
 });
