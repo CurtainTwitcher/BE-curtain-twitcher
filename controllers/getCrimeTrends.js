@@ -5,9 +5,9 @@ const getCrimeTrends = (req, res, next) => {
   const { lng, lat } = req.query;
   const radius = 0.25;
   const earthRadius = 3959;
-  let maxDistance = radius / earthRadius;
+  const maxDistance = radius / earthRadius;
   findCrimeTrends(lng, lat, maxDistance)
-    .then(crime => res.json(crime))
+    .then(crime => res.send(crime))
     .catch(err => next(err));
 };
 
