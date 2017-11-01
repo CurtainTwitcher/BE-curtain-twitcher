@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('fast-csv');
 const async = require('async');
-const tidyCrime = require('../utils/crimes/tidyCrime');
+const {tidyCrime} = require('./helpers');
 
 const CRIME_STREET_PATH = path.join(__dirname, '../data/2017-08-street');
 const StreetCrime = require('../models/streetCrime');
