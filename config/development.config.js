@@ -1,8 +1,4 @@
 module.exports = {
-  db: {
-    host: 'localhost',
-    port: 27017,
-    database: 'curtain_twitcher'
-  }, 
+  db: 'mongodb://localhost:27017/curtain_twitcher', 
   PORT: process.env.PORT || 3000
 };

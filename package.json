@@ -6,12 +6,12 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "NODE_ENV=test mocha ./spec/*",
-    "start": "NODE_ENV=development node index.js",
+    "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
     "lint": "eslint ./",
     "lint:fix": "npm run lint -- --fix",
     "precommit": "npm test",
-    "seed": "node ./seed/index.js"
+    "seed": "NODE_ENV=production node ./seed/index.js"
   },
   "keywords": [],
   "author": "",
