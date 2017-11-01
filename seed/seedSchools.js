@@ -7,17 +7,21 @@ const OFSTED_DATA_PATH = path.join(__dirname, '../data/schools/ofstedSchoolData.
 
 const seedSchools = () => {
   let schools;
-  parseSchools(OFSTED_DATA_PATH)
+  console.log('Seeding schools...');
+  return parseSchools(OFSTED_DATA_PATH)
     .then(parsedSchools => {
       schools = parsedSchools;
+      console.log(`Parsed ${schools.length} schools`);
       return getCoords(schools);
     })
     .then(reduceCoords)
     .then((coords) => {
+      console.log(`Reduced ${Object.keys(coords).length} coords`);
       return schools.map(school => tidySchool(school, coords));
     })
     .then(schools => {
       const docs = schools.map(s => new OfstedSchool(s));
+      console.log(`Saving ${schools.length} schools`);
       return OfstedSchool.insertMany(docs);
     });
 };

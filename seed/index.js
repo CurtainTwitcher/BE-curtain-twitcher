@@ -1,26 +1,26 @@
-require('dotenv').config();
-
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
 const seedSchools = require('./seedSchools');
 const seedCrimes = require('./seedCrimes');
 
-const {DB_URL} = process.env;
+const { db } = require('../config');
 
-mongoose.connect(DB_URL, {useMongoClient: true})
+mongoose.connect(db, {useMongoClient: true})
   .then(() => {
-    console.log(`Successfully connected to ${DB_URL}`);
+    return console.log(`Successfully connected to ${db}`);
+  })
+  .then(() => {
     return seedCrimes();
   })
   .then((crimes) => {
-    console.log(`Seeded ${crimes} crimes`);  
+    return console.log(`Seeded ${crimes} crimes`);  
   })
   .then(() => {
     return seedSchools();
   })
   .then(insertedSchools => {
-    console.log(`Inserted ${insertedSchools} schools`);
+    return console.log(`Inserted ${insertedSchools.length} schools`);
   })
   .then(() => mongoose.disconnect())
   .then(() => console.log('Disconnected from DB'))

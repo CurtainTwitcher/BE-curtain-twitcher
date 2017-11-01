@@ -8,6 +8,7 @@ const CRIME_STREET_PATH = path.join(__dirname, '../data/2017-08-street');
 const StreetCrime = require('../models/streetCrime');
 
 function seedCrimes () {
+  console.log('Seeding crimes...');
   return new Promise((resolve, reject) => {
     const filenames = fs.readdirSync(CRIME_STREET_PATH)
       .filter(name => name !== '.DS_Store');
@@ -24,7 +25,7 @@ function seedCrimes () {
         .on('end', () => {
           StreetCrime.insertMany(crimes, (err, docs) => {
             if (err) return next(err);
-            console.info(`Inserted ${docs.length} documents`);
+            console.info(`Inserted ${docs.length} crimes`);
             totalDocs += docs.length;
             next();
           });
