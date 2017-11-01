@@ -7,11 +7,13 @@ const schoolsRouter = require('./routes/schoolsRouter');
 const { db } = require('./config');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
+const cors = require('cors');
 
 mongoose.connect(db , {useMongoClient: true})
   .then(() => console.log(`Successfully connected to ${db}`))
   .catch(err => console.log(`Connection failed: ${err}`));
 
+app.use(cors());
 app.use(json());
 
 app.use('/api/crimes', streetCrimesRouter);
