@@ -1,15 +1,27 @@
-const seedSchools = require('../utils/schools/parseSchools');
-const getCoords = require('../utils/schools/getCoords');
-const seedCrimes = require('../utils/crimes/seedCrimes');
+require('dotenv').config();
 
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
-const { db } = require('../config');
 
-mongoose.connect(db, {useMongoClient: true})
+const seedSchools = require('./seedSchools');
+const seedCrimes = require('./seedCrimes');
+
+const {DB_URL} = process.env;
+
+mongoose.connect(DB_URL, {useMongoClient: true})
   .then(() => {
-    console.log(`Successfully connected to ${db}`);
-    return Promise.all([ seedCrimes(), seedSchools(getCoords)]);
+    console.log(`Successfully connected to ${DB_URL}`);
+    return seedCrimes();
+  })
+  .then((crimes) => {
+    console.log(`Seeded ${crimes} crimes`);  
+  })
+  .then(() => {
+    return seedSchools();
+  })
+  .then(insertedSchools => {
+    console.log(`Inserted ${insertedSchools} schools`);
   })
   .then(() => mongoose.disconnect())
-  .catch(err => console.log(`Connection failed: ${err}`));
+  .then(() => console.log('Disconnected from DB'))
+  .catch(console.error);
