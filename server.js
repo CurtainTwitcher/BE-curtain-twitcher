@@ -2,7 +2,7 @@ if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
 
 const app = require('express')();
 const { json } = require('body-parser');
-const streetCrimesRouter = require('./routes/streetCrimesRouter');
+const streetCrimesRouter = require('./routes/streetCrimesRouter.js');
 const schoolsRouter = require('./routes/schoolsRouter');
 const { db } = require('./config');
 const mongoose = require('mongoose');
