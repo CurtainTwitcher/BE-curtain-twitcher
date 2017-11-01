@@ -11,7 +11,7 @@
     "lint": "eslint ./",
     "lint:fix": "npm run lint -- --fix",
     "precommit": "npm test",
-    "seed:production": "NODE_ENV=production node ./seed/index.js",
+    "seed:production": "node ./seed/index.js",
     "seed:development": "NODE_ENV=development node ./seed/index.js"
   },
   "keywords": [],
