@@ -1,13 +1,13 @@
-// const streetCrime = require('../models/streetCrime');
-const findRecentCrimes = require('../utils/findRecentCrimes');
+const findRecentCrimes = require('../utils/crimes/findRecentCrimes');
 
 // coordinates must be LNG first, LAT second
 const getRecentCrimes = (req, res, next) => {
-  const {lng, lat, limit = 10, distance = 0.2} = req.query;
-  let maxDistance = distance / 3959;
-  console.log(lng, lat, limit);
-  findRecentCrimes(lng, lat, maxDistance)
-    .then(crime => res.json(crime))
+  const { lng, lat, month = '2017-08', dis : radius = 0.25, type : crimeType = { $exists: true } } = req.query;
+  if (!lng || !lat) return res.status(404).send({msg: 'please provide longitude and latitude'});
+  const earthRadius = 3959;
+  const maxDistance = radius / earthRadius;
+  findRecentCrimes(lng, lat, month, maxDistance, crimeType)
+    .then(crime => res.send(crime))
     .catch(err => next(err));
 };
 

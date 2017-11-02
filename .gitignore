@@ -1,4 +1,3 @@
 node_modules
-config
-data
 .env
+.DS_Store
