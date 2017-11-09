@@ -19,7 +19,7 @@ app.use(json());
 app.use('/api/crimes', streetCrimesRouter);
 app.use('/api/schools', schoolsRouter);
 
-app.use('/*', (req, res, next) => {
+app.use('/*', (req, res) => {
   res.status(404).send({msg: 'invalid url request'});
 });
 
@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(500).send({err});
 });
 

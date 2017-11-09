@@ -6,14 +6,10 @@ const saveTestData = require('../seed/seed.test.ofstedSchool');
 const app = require('../server');
 
 describe('API', () => {
-  let usefulData;
   beforeEach(() => {
     return mongoose.connection
       .dropDatabase()
       .then(saveTestData)
-      .then(data => {
-        usefulData = data;
-      })
       .catch(err => console.log(err));
   });
   describe('GET /schools', () => {
